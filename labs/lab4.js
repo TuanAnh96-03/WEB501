@@ -184,3 +184,28 @@ function fetchMultipleData(urls) {
 fetchMultipleData(["/api/user/1", "/api/user/2"]).then((users) =>
   console.log(users)
 );
+
+
+
+// Async/await
+// Bài tập Async/Await
+// Bài 1: Viết lại callback hell thành async/await
+
+// Viết lại hàm này sử dụng async/await
+async function processOrder(orderId) {``
+  try{
+    const order = await getOrder(orderId);
+    const user = await getUser(order.userId); 
+    const products = await getProducts(order.productIds)
+  return{
+    order,
+    user,
+    products
+  };
+
+  }
+  catch(error){
+    console.log("failed",error);
+    throw error;
+  }
+}
