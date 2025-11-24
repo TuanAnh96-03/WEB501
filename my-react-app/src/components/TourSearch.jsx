@@ -42,7 +42,7 @@ export default function AdvancedTourSearch({ onSearch }) {
           <option value="Đà Lạt">Đà Lạt</option>
         </select>
       </div>
-      <div>s
+      <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">Ngày khởi hành</label>
         <input
           type="date"

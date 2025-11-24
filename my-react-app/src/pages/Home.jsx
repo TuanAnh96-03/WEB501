@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import axios from 'axios'
 import Banner from "../components/Banner";
 import Heading from "../components/Heading";
@@ -9,11 +9,20 @@ import TourSearch from "../components/TourSearch";
 
 function Home() {
   const [tours, setTours]=useState([]);
-  const getTours = async () => {
+  useEffect(()=>{
+    console.log("Chay 1 lan khi mount")
+    const getTours = async () => {
+      try{
     const {data} = await axios.get('http://localhost:3001/tours')
     setTours(data)
+      } catch(error){
+        console.log(error)
+      }
+   
   }
   getTours();
+  },[])
+  
 
   const handleSearch = (filters) => {
     console.log("Tìm tour với:", filters);
@@ -36,14 +45,14 @@ function Home() {
     {tours.map((tour) => (
       <TourCard
         key={tour.id}
-        title={tour.title}
+        name={tour.name}
         image={tour.image}
-        location={tour.location}
+        destination={tour.destination}
         price={tour.price}
       />
     ))}
   </section>
-</div>
+</div>  
 
       </main>
       <Footer />

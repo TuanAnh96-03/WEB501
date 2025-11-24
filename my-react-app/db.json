@@ -2,12 +2,12 @@
     "tours": [
         {
             "id": 1,
-            "name": "Hà Nội - Sapa 3N2D",
-            "destination": "Sapa",
+            "name": "Hà Nội - Nha Trang 3N2D",
+            "destination": "Nha Trang",
             "duration": "3 ngày 2 đêm",
             "price": 2500000,
-            "image": "https://picsum.photos/400/300?random=1",
-            "description": "Khám phá Sapa với những ruộng bậc thang tuyệt đẹp",
+            "image": "https://vtourist.com.vn/wp-content/uploads/2024/05/Nha-Trang-1-1536x1058.jpg",
+            "description": "Thiên đường du lịch biển",
             "available": 15
         },
         {
