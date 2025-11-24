@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import axios from 'axios'
 import Banner from "../components/Banner";
 import Heading from "../components/Heading";
 import TourCard from "../components/TourCard";
@@ -6,29 +8,12 @@ import Footer from "../components/Footer";
 import TourSearch from "../components/TourSearch";
 
 function Home() {
-  const tours = [
-    {
-      id: 1,
-      title: "Tour Đà Nẵng 3N2Đ",
-      location: "Đà Nẵng",
-      price: "2,500,000",
-      image: "https://vtourist.com.vn/wp-content/uploads/2024/05/Ba-Na-Hill.jpg"
-    },
-    {
-      id: 2,
-      title: "Tour Nha Trang 4N3Đ",
-      location: "THIÊN ĐƯỜNG DU LỊCH BIỂN",
-      price: "3,200,000",
-      image: "https://vtourist.com.vn/wp-content/uploads/2024/05/Nha-Trang-1-1536x1058.jpg"
-    },
-    {
-      id: 3,
-      title: "Tour Đà Lạt 3N3Đ",
-      location: "KHÁM PHÁ THÀNH PHỐ NGÀN HOA",
-      price: "2,290,000",
-      image: "https://vtourist.com.vn/wp-content/uploads/2024/05/Da-Lat-1536x1025.jpg"
-    }
-  ];
+  const [tours, setTours]=useState([]);
+  const getTours = async () => {
+    const {data} = await axios.get('http://localhost:3001/tours')
+    setTours(data)
+  }
+  getTours();
 
   const handleSearch = (filters) => {
     console.log("Tìm tour với:", filters);
