@@ -1,9 +1,12 @@
+import axios from "axios";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 
-function List() {
+
+function ListPage() {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:3001/tours")
@@ -15,11 +18,23 @@ function List() {
       .catch((err) => {
         console.error("Error fetching tours:", err);
         setLoading(false);
+        setError(err.message)
       });
   }, []);
 
-  const handleDelete = () => {
-    toast.success("Xóa thành công"); // chỉ hiển thị thông báo
+  const handleDelete = async(id) => {
+    if(!confirm("Bạn chắc chắn muốn xóa tour này ?")) return;
+    setLoading(false);  
+    try{
+      await axios.delete(`http://localhost:3001/tours/${id}`);
+      setTours(tours.filter((t) => t.id !== id));
+      toast.success("Xóa thành công")
+    } catch(err){
+      setError(err.message);
+      toast.error(error)
+    } finally{
+      setLoading(false)
+    }
   };
 
   if (loading) {
@@ -56,7 +71,7 @@ function List() {
                 <td className="px-4 py-2 border border-gray-300">{tour.available}</td>
                 <td className="px-4 py-2 border border-gray-300">
                   <button
-                    onClick={handleDelete}
+                    onClick={()=> handleDelete(tour.id)}
                     className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                   >
                     Xóa
@@ -71,4 +86,4 @@ function List() {
   );
 }
 
-export default List;
+export default ListPage;
