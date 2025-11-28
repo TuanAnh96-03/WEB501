@@ -4,17 +4,28 @@ import axios from 'axios'
 
 function AddPage() {
   const [name, setName] = useState('')
+  const [destination, setDestination] = useState('')
+  const [duration, setDuration] = useState('')
   const [price, setPrice] = useState('')
+  const [image, setImage] = useState('')
+  const [description, setDescription] = useState('')
+  const [available, setAvailable] = useState('')
   const [category, setCategory] = useState('Tour noi dia')
 
   // handleChange
   const handleSubmit = async event => {
     event.preventDefault()
     try {
-      await axios.post('http://localhost:3000/tours', {
+      await axios.post('http://localhost:3001/tours', {
         name, // es6
+        destination,
+        duration,
         price: Number(price),
-        category: category,
+        image,
+        description,
+        available: Number(available),
+        category
+
       })
       toast.success('them thanh cong')
     } catch (error) {
@@ -39,6 +50,33 @@ function AddPage() {
             className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
+
+        <div>
+          <label htmlFor="text" className="block font-medium mb-1">
+            Destination
+          </label>
+          <input
+            value={destination}
+            onChange={event => setDestination(event.target.value)}
+            type="text"
+            id="text"
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="text" className="block font-medium mb-1">
+            Duration
+          </label>
+          <input
+            value={duration}
+            onChange={event => setDuration(event.target.value)}
+            type="text"
+            id="text"
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
         <div>
           <label htmlFor="text" className="block font-medium mb-1">
             Price
@@ -46,6 +84,45 @@ function AddPage() {
           <input
             value={price}
             onChange={event => setPrice(event.target.value)}
+            type="number"
+            id="text"
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="text" className="block font-medium mb-1">
+            Image
+          </label>
+          <input
+            value={image}
+            onChange={event => setImage(event.target.value)}
+            type="text"
+            id="text"
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="text" className="block font-medium mb-1">
+            Description
+          </label>
+          <input
+            value={description}
+            onChange={event => setDescription(event.target.value)}
+            type="text"
+            id="text"
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="text" className="block font-medium mb-1">
+            Available
+          </label>
+          <input
+            value={available}
+            onChange={event => setAvailable(event.target.value)}
             type="number"
             id="text"
             className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
