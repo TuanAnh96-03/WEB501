@@ -2,6 +2,7 @@ import { Toaster } from "react-hot-toast";
 import ListPage from "./pages/List";
 import { Link, Route,Routes } from "react-router-dom";
 import AddPage from "./pages/Add";
+import EditPage from "./pages/Edit";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
         <Routes>
           <Route path="/list" element={<ListPage />}/>
           <Route path="/add" element={<AddPage />}/>
+          <Route path="/edit/:id" element={<EditPage />}/>
         </Routes>
       </div>
 

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 
 function ListPage() {
@@ -35,6 +36,11 @@ function ListPage() {
     } finally{
       setLoading(false)
     }
+  };
+
+  const navigate = useNavigate()
+  const handleEdit = (id) =>{
+    navigate(`/edit/${id}`);
   };
 
   if (loading) {
@@ -75,6 +81,12 @@ function ListPage() {
                     className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                   >
                     Xóa
+                  </button>
+                  <button
+                    onClick={()=> handleEdit(tour.id)}
+                    className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"
+                  >
+                    Sửa
                   </button>
                 </td>
               </tr>
