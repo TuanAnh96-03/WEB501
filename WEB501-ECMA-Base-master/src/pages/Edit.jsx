@@ -32,7 +32,7 @@ function EditPage() {
     try {
       await axios.put(`http://localhost:3001/tours/${id}`, tour);
       toast.success("Cập nhật thành công!");
-      navigate("/"); // quay về danh sách
+      navigate("/list"); 
     } catch (err) {
       toast.error("Có lỗi khi cập nhật");
     }
