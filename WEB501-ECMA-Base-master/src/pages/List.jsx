@@ -10,7 +10,7 @@ function ListPage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3001/tours")
+    fetch("http://localhost:3000/tours")
       .then((res) => res.json())
       .then((data) => {
         setTours(data);
@@ -27,7 +27,7 @@ function ListPage() {
     if(!confirm("Bạn chắc chắn muốn xóa tour này ?")) return;
     setLoading(false);  
     try{
-      await axios.delete(`http://localhost:3001/tours/${id}`);
+      await axios.delete(`http://localhost:3000/tours/${id}`);
       setTours(tours.filter((t) => t.id !== id));
       toast.success("Xóa thành công")
     } catch(err){

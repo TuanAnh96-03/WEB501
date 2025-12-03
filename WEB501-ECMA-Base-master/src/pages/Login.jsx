@@ -6,12 +6,12 @@ import { useNavigate } from 'react-router-dom'
 function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const nav = useNavigate() // bai so 10 routing
+  const nav = useNavigate() 
 
   const handleSubmit = async event => {
     event.preventDefault()
     try {
-      const { data } = await axios.post('http://localhost:3001/login', {
+      const { data } = await axios.post('http://localhost:3000/login', {
         email, // es6
         password,
       })
