@@ -24,8 +24,6 @@
   
   "users" : [
   {
-  "email": "abc@example.com",
-  "password": "123456"
   }
 
   ]

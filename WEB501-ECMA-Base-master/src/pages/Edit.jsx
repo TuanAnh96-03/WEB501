@@ -11,7 +11,7 @@ function EditPage() {
 
   useEffect(() => { 
     axios
-      .get(`http://localhost:3000/tours/${id}`)
+      .get(`http://localhost:3001/tours/${id}`)
       .then((res) => {
         setTour(res.data);
         setLoading(false);

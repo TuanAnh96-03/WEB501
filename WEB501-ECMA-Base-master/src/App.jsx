@@ -1,6 +1,6 @@
 import { Toaster } from "react-hot-toast";
 import ListPage from "./pages/List";
-import { Link, Links, Route,Routes } from "react-router-dom";
+import { Link, Route,Routes } from "react-router-dom";
 import AddPage from "./pages/Add";
 import EditPage from "./pages/Edit";
 import LoginPage from "./pages/Login";
@@ -49,7 +49,7 @@ function App() {
           <Route path="/add" element={<AddPage />}/>
           <Route path="/edit/:id" element={<EditPage />}/>
           <Route path="/login" element={<LoginPage/>}/>
-          <Route path="/register" element={<RegisterPage/>}/>
+          <Route path="/register" element={<RegisterPage />} />
         </Routes>
       </div>
 
