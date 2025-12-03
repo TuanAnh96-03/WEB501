@@ -16,7 +16,7 @@ function AddPage() {
   const handleSubmit = async event => {
     event.preventDefault()
     try {
-      await axios.post('http://localhost:3000/tours', {
+      await axios.post('http://localhost:3001/tours', {
         name, // es6
         destination,
         duration,

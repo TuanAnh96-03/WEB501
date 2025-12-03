@@ -1,8 +1,11 @@
 import { Toaster } from "react-hot-toast";
 import ListPage from "./pages/List";
-import { Link, Route,Routes } from "react-router-dom";
+import { Link, Links, Route,Routes } from "react-router-dom";
 import AddPage from "./pages/Add";
 import EditPage from "./pages/Edit";
+import LoginPage from "./pages/Login";
+import RegisterPage from "./pages/Register";
+
 
 function App() {
   return (
@@ -26,12 +29,12 @@ function App() {
           </div>
 
           <div className="hidden md:flex items-center space-x-6">
-            <a href="#" className="hover:text-gray-200">
+            <Link to ="/login" className="hover:text-gray-200">
               Đăng nhập
-            </a>
-            <a href="#" className="hover:text-gray-200">
+            </Link>
+            <Link to ="/register" className="hover:text-gray-200">
               Đăng ký
-            </a>
+            </Link>
           </div>
         </div>
       </nav>
@@ -45,6 +48,8 @@ function App() {
           <Route path="/list" element={<ListPage />}/>
           <Route path="/add" element={<AddPage />}/>
           <Route path="/edit/:id" element={<EditPage />}/>
+          <Route path="/login" element={<LoginPage/>}/>
+          <Route path="/register" element={<RegisterPage/>}/>
         </Routes>
       </div>
 
