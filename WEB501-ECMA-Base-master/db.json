@@ -21,10 +21,11 @@
       "available": "30"
     }
   ],
-  
-  "users" : [
-  {
-  }
-
+  "users": [
+    {
+      "email": "abcd1234@gmail.com",
+      "password": "$2a$10$oXptFhaesaNYU/RJSr6kCe2ldKq.2pom/AE4aqaVhWS94dBQiBdjq",
+      "id": 1
+    }
   ]
 }
