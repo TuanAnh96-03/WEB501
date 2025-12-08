@@ -1,11 +1,8 @@
 import { Toaster } from "react-hot-toast";
+import {Link, Route, Routes } from "react-router-dom";
 import ListPage from "./pages/List";
-import { Link, Route,Routes } from "react-router-dom";
 import AddPage from "./pages/Add";
 import EditPage from "./pages/Edit";
-import LoginPage from "./pages/Login";
-import RegisterPage from "./pages/Register";
-
 
 function App() {
   return (
@@ -20,21 +17,21 @@ function App() {
             <a href="#" className="hover:text-gray-200">
               Trang chủ
             </a>
-            <Link to="/list" className="hover:text-gray-200">
+            <Link to= "/list" className="hover:text-gray-200">
               Danh sách
             </Link>
-            <Link to="/add" className="hover:text-gray-200">
+            <Link to= "/add" className="hover:text-gray-200">
               Thêm mới
             </Link>
           </div>
 
           <div className="hidden md:flex items-center space-x-6">
-            <Link to ="/login" className="hover:text-gray-200">
+            <a href="#" className="hover:text-gray-200">
               Đăng nhập
-            </Link>
-            <Link to ="/register" className="hover:text-gray-200">
+            </a>
+            <a href="#" className="hover:text-gray-200">
               Đăng ký
-            </Link>
+            </a>
           </div>
         </div>
       </nav>
@@ -43,15 +40,14 @@ function App() {
       <div className="max-w-6xl mx-auto mt-10 px-4 text-center">
         <h1 className="text-4xl font-bold mb-4">Chào mừng đến với WEB501</h1>
         <p className="text-lg text-gray-600">Ứng dụng quản lý dữ liệu</p>
-
-        <Routes>
-          <Route path="/list" element={<ListPage />}/>
-          <Route path="/add" element={<AddPage />}/>
-          <Route path="/edit/:id" element={<EditPage />}/>
-          <Route path="/login" element={<LoginPage/>}/>
-          <Route path="/register" element={<RegisterPage />} />
-        </Routes>
       </div>
+
+      <Routes>
+        <Route path="/list" element={<ListPage />}/>
+        <Route path="/add" element={<AddPage />}/>
+        <Route path="/edit/:id" element={<EditPage />}/>
+
+      </Routes>
 
       <Toaster />
     </>

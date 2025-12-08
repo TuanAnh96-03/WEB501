@@ -1,127 +1,98 @@
-import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { toast } from "react-hot-toast";
 import axios from "axios";
-import toast from "react-hot-toast";
+import { useNavigate, useParams } from "react-router-dom";
 
 function EditPage() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [tour, setTour] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [subject, setSubject] = useState("");
+  const [major, setMajor] = useState("");
 
-  useEffect(() => { 
-    axios
-      .get(`http://localhost:3000/tours/${id}`)
-      .then((res) => {
-        setTour(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        toast.error("Không tìm thấy tour");
-        setLoading(false);
-      });
+  const navigate = useNavigate();
+  const { id } = useParams(); 
+
+  useEffect(() => {
+    const fetchStudent = async () => {
+      try {
+        const { data } = await axios.get(`http://localhost:3000/students/${id}`);
+        setName(data.name);
+        setAge(data.age);
+        setSubject(data.subject);
+        setMajor(data.major);
+      } catch (error) {
+        toast.error("Không tìm thấy sinh viên");
+      }
+    };
+    fetchStudent();
   }, [id]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setTour({ ...tour, [name]: value });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     try {
-      await axios.put(`http://localhost:3001/tours/${id}`, tour);
-      toast.success("Cập nhật thành công!");
-      navigate("/list"); 
-    } catch (err) {
-      toast.error("Có lỗi khi cập nhật");
+      await axios.put(`http://localhost:3000/students/${id}`, {
+        name,
+        age: Number(age),
+        subject,
+        major,
+      });
+      toast.success("Cập nhật thành công");
+      navigate("/list");
+    } catch (error) {
+      toast.error(error.message);
     }
   };
 
-  if (loading) return <p className="p-6">Đang tải dữ liệu...</p>;
-  if (!tour) return <p className="p-6">Không có dữ liệu tour</p>;
-
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-6">Chỉnh sửa tour</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <h1 className="text-2xl font-semibold mb-6">Thay đổi thông tin sinh viên</h1>
+
+      <form className="space-y-6" onSubmit={handleSubmit}>
         <div>
-          <label className="block">Tên tour</label>
+          <label className="block font-medium mb-1">Tên sinh viên</label>
           <input
-            name="name"
-            value={tour.name}
-            onChange={handleChange}
-            className="border px-3 py-2 w-full"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            type="text"
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
         <div>
-          <label className="block">Điểm đến</label>
+          <label className="block font-medium mb-1">Tuổi</label>
           <input
-            name="destination"
-            value={tour.destination}
-            onChange={handleChange}
-            className="border px-3 py-2 w-full"
-          />
-        </div>
-
-        <div>
-          <label className="block">Thời gian</label>
-          <input
-            name="duration"
-            value={tour.duration}
-            onChange={handleChange}
-            className="border px-3 py-2 w-full"
-          />
-        </div>
-
-        <div>
-          <label className="block">Giá</label>
-          <input
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
             type="number"
-            name="price"
-            value={tour.price}
-            onChange={handleChange}
-            className="border px-3 py-2 w-full"
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
         <div>
-          <label className="block">Mô tả</label>
-          <textarea
-            name="description"
-            value={tour.description}
-            onChange={handleChange}
-            className="border px-3 py-2 w-full"
-          />
-        </div>
-
-        <div>
-          <label className="block">Ảnh (URL)</label>
+          <label className="block font-medium mb-1">Môn học</label>
           <input
-            name="image"
-            value={tour.image}
-            onChange={handleChange}
-            className="border px-3 py-2 w-full"
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+            type="text"
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
         <div>
-          <label className="block">Số lượng còn lại</label>
+          <label className="block font-medium mb-1">Ngành học</label>
           <input
-            type="number"
-            name="available"
-            value={tour.available}
-            onChange={handleChange}
-            className="border px-3 py-2 w-full"
+            value={major}
+            onChange={(e) => setMajor(e.target.value)}
+            type="text"
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
 
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className="px-5 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
         >
-          Lưu
+          Submit
         </button>
       </form>
     </div>

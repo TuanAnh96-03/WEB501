@@ -3,43 +3,43 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
-
 function ListPage() {
-  const [tours, setTours] = useState([]);
+  const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/tours")
-      .then((res) => res.json())
-      .then((data) => {
-        setTours(data);
+    const getStudent = async () => {
+      try {
+        const { data } = await axios.get("http://localhost:3000/students");
+        setStudents(data);
+      } catch (err) {
+        console.error("Lỗi:", err);
+        setError(err.message);
+      } finally {
         setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error fetching tours:", err);
-        setLoading(false);
-        setError(err.message)
-      });
+      }
+    };
+    getStudent();
   }, []);
 
-  const handleDelete = async(id) => {
-    if(!confirm("Bạn chắc chắn muốn xóa tour này ?")) return;
-    setLoading(false);  
-    try{
-      await axios.delete(`http://localhost:3000/tours/${id}`);
-      setTours(tours.filter((t) => t.id !== id));
-      toast.success("Xóa thành công")
-    } catch(err){
+  const handleDelete = async (id) => {
+    if (!confirm("Bạn có chắc chắn muốn xóa không ?")) return;
+    setLoading(true);
+    try {
+      await axios.delete(`http://localhost:3000/students/${id}`);
+      setStudents(students.filter((t) => t.id !== id));
+      toast.success("Xóa thành công");
+    } catch (err) {
       setError(err.message);
-      toast.error(error)
-    } finally{
-      setLoading(false)
+      toast.error(err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const navigate = useNavigate()
-  const handleEdit = (id) =>{
+  const navigate = useNavigate();
+  const handleEdit = (id) => {
     navigate(`/edit/${id}`);
   };
 
@@ -49,41 +49,38 @@ function ListPage() {
 
   return (
     <div className="p-6">
-      <h1 className="text-2xl font-semibold mb-6">Danh sách tours</h1>
+      <h1 className="text-2xl font-semibold mb-6">Danh sách</h1>
 
       <div className="overflow-x-auto">
         <table className="w-full border border-gray-300 rounded-lg">
           <thead className="bg-gray-100">
             <tr>
               <th className="px-4 py-2 border border-gray-300">#</th>
-              <th className="px-4 py-2 border border-gray-300">Tên tour</th>
-              <th className="px-4 py-2 border border-gray-300">Điểm đến</th>
-              <th className="px-4 py-2 border border-gray-300">Thời gian</th>
-              <th className="px-4 py-2 border border-gray-300">Giá</th>
-              <th className="px-4 py-2 border border-gray-300">Còn lại</th>
+              <th className="px-4 py-2 border border-gray-300">Tên</th>
+              <th className="px-4 py-2 border border-gray-300">Tuổi</th>
+              <th className="px-4 py-2 border border-gray-300">Môn học</th>
+              <th className="px-4 py-2 border border-gray-300">Ngành học</th>
               <th className="px-4 py-2 border border-gray-300">Hành động</th>
             </tr>
           </thead>
+
           <tbody>
-            {tours.map((tour) => (
-              <tr key={tour.id} className="hover:bg-gray-50">
-                <td className="px-4 py-2 border border-gray-300">{tour.id}</td>
-                <td className="px-4 py-2 border border-gray-300">{tour.name}</td>
-                <td className="px-4 py-2 border border-gray-300">{tour.destination}</td>
-                <td className="px-4 py-2 border border-gray-300">{tour.duration}</td>
-                <td className="px-4 py-2 border border-gray-300">
-                  {tour.price.toLocaleString()} VND
-                </td>
-                <td className="px-4 py-2 border border-gray-300">{tour.available}</td>
+            {students.map((student) => (
+              <tr key={student.id} className="hover:bg-gray-50">
+                <td className="px-4 py-2 border border-gray-300">{student.id}</td>
+                <td className="px-4 py-2 border border-gray-300">{student.name}</td>
+                <td className="px-4 py-2 border border-gray-300">{student.age}</td>
+                <td className="px-4 py-2 border border-gray-300">{student.subject}</td>
+                <td className="px-4 py-2 border border-gray-300">{student.major}</td>
                 <td className="px-4 py-2 border border-gray-300">
                   <button
-                    onClick={()=> handleDelete(tour.id)}
+                    onClick={() => handleDelete(student.id)}
                     className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
                   >
                     Xóa
                   </button>
                   <button
-                    onClick={()=> handleEdit(tour.id)}
+                    onClick={() => handleEdit(student.id)}
                     className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-600"
                   >
                     Sửa
